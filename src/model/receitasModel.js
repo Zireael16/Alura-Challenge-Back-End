@@ -5,6 +5,14 @@ const queries = require('./receitasQueries.js');
 
 
 
+//Post Receitas CREATE
+
+const criarUmaReceita = async(descricao , valor ) => {
+    const pool = new Pool(config);
+    const receitaCriada  = await pool.query(queries.InsertReceita, [descricao , valor]);
+    pool.end();
+    return receitaCriada;
+}
 
 //Get Receitas READ
 const listarTodasReceitas = async () => {
@@ -20,14 +28,6 @@ const detalharUmaReceita = async (id) => {
     pool.end();
     return receitaDetalhada;
 }
-//Post Receitas CREATE
-
-const criarUmaReceita = async(descricao , valor ) => {
-    const pool = new Pool(config);
-    const receitaCriada  = await pool.query(queries.InsertReceita, [descricao , valor]);
-    pool.end();
-    return receitaCriada;
-}
 //Put Receita UPDATE  
 const atualizarUmaReceita = async (descricao , valor , id) => {
     const pool = new Pool(config);
@@ -35,7 +35,7 @@ const atualizarUmaReceita = async (descricao , valor , id) => {
     pool.end();
     return receitaAtualizada;
 }
-
+//Delete Receita DELETE
 const deletarUmaReceita = async (id) => {
     const pool = new Pool(config);
     const receitaDeletada = await pool.query( queries.DeleteReceita , [id])
@@ -43,10 +43,28 @@ const deletarUmaReceita = async (id) => {
     return receitaDeletada;
 }
 
+//Features
+const listarPorTipo = async (descricao) => {
+    const pool = new Pool(config);
+    const listaPorTipo = await pool.query(queries.ReceitaPorTipo , [descricao])
+    pool.end();
+    return listaPorTipo;
+}
+
+const receitasPorMes = async ( ano , mes )  => {
+    const pool = new Pool(config);
+    const listaPorMes = await pool.query(queries.ReceitasPorMes , [ano , mes]);
+    pool.end();
+    return listaPorMes;
+}
+
+
 module.exports = {
     listarTodasReceitas,
     detalharUmaReceita,
     criarUmaReceita,
     atualizarUmaReceita,
-    deletarUmaReceita
+    deletarUmaReceita,
+    listarPorTipo,
+    receitasPorMes
 };

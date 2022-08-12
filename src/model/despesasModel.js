@@ -3,9 +3,20 @@ const config = require('../../config/dbConnection.js');
 const queries = require('./despesasQueries.js');
 
 
+//Post Despesas CREATE
+const criarUmaDespesa = async(descricao , valor, categoria ) => {
+    const pool = new Pool(config);
+    if(categoria) {
+        const despesaCriada  = await pool.query(queries.InsertDespesa, [descricao , valor , categoria]);
+        pool.end();
+        return despesaCriada;
+    }
+    const despesaCriada  = await pool.query(queries.InsertDespesa, [descricao , valor, "Outras"]);
+        pool.end();
+        return despesaCriada;
+}
 
-
-//Get Receitas READ
+//Get Despesas READ
 const listarTodasDespesas = async () => {
     const pool = new Pool(config)
     const despesasListadas = await pool.query(queries.SelectAllDespesas);
@@ -19,14 +30,7 @@ const detalharUmaDespesa = async (id) => {
     pool.end();
     return despesaDetalhada;
 }
-//Post Receitas CREATE
 
-const criarUmaDespesa = async(descricao , valor ) => {
-    const pool = new Pool(config);
-    const despesaCriada  = await pool.query(queries.InsertDespesa, [descricao , valor]);
-    pool.end();
-    return despesaCriada;
-}
 //Put Receita UPDATE  
 const atualizarUmaDespesa = async (descricao , valor , id) => {
     const pool = new Pool(config);
@@ -35,11 +39,26 @@ const atualizarUmaDespesa = async (descricao , valor , id) => {
     return despesaAtualizada;
 }
 
+//Delete Receita DELETE
 const deletarUmaDespesa = async (id) => {
     const pool = new Pool(config);
     const despesaDeletada = await pool.query( queries.DeleteDespesa , [id])
     pool.end();
     return despesaDeletada;
+}
+//Features 
+const despesasPorTipo = async (descricao) => {
+    const pool = new Pool(config);
+    const listaPorTipo = await pool.query(queries.DespesaPorTipo , [descricao])
+    pool.end();
+    return listaPorTipo;
+}
+
+const despesasPorMes = async ( ano , mes )  => {
+    const pool = new Pool(config);
+    const despesaMes = await pool.query(queries.DespesasPorMes , [ano , mes]);
+    pool.end();
+    return despesaMes;
 }
 
 module.exports = {
@@ -47,5 +66,7 @@ module.exports = {
     detalharUmaDespesa,
     criarUmaDespesa,
     atualizarUmaDespesa,
-    deletarUmaDespesa
+    deletarUmaDespesa,
+    despesasPorTipo,
+    despesasPorMes
 };

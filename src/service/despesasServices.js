@@ -14,8 +14,8 @@ const detalharDespesa = async (id) => {
 };
 
 
-const criarDespesa = async (descricao, valor) => {
-    const resultadoQuery = await model.criarUmaDespesa(descricao , valor );
+const criarDespesa = async (descricao, valor , categoria) => {
+    const resultadoQuery = await model.criarUmaDespesa(descricao , valor , categoria );
     return resultadoQuery;
 };
 
@@ -31,11 +31,22 @@ const deletarDespesa = async (id) => {
     return resultadoQuery;
 }
 
+const despesasPorTipo = async (descricao) => {
+    const despesaPorTipo = await model.despesasPorTipo(descricao);
+    return despesaPorTipo;
+}
+
+const DespesasMes = async (ano, mes) => {
+    const listaMes = await model.despesasPorMes(ano , mes);
+    return listaMes;
+}
 
 module.exports = {
     listarDespesas,
     detalharDespesa,
     criarDespesa,
     atualizarDespesa,
-    deletarDespesa
+    deletarDespesa,
+    despesasPorTipo,
+    DespesasMes
 }
