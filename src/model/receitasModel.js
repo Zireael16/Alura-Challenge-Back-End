@@ -1,4 +1,5 @@
 
+
 const { Pool } = require('pg');
 const config = require('../../config/dbConnection.js');
 const queries = require('./receitasQueries.js');

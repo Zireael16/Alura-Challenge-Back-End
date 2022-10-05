@@ -29,8 +29,8 @@ const resumoMes = async (ano , mes) => {
     const totalImprevistos = valorImprevistos.rows[0].sum !== null ?valorImprevistos.rows[0].sum : 0;
     const totalOutras = valorOutras.rows[0].sum !== null ?valorOutras.rows[0].sum : 0;
 
-    const totalReceitas = valorReceitas.rows[0].sum;
-    const totalDespesas = valorDespesas.rows[0].sum;
+    const totalReceitas = valorReceitas.rows[0].sum !== null ?valorReceitas.rows[0].sum : 0;
+    const totalDespesas = valorDespesas.rows[0].sum !== null ?valorDespesas.rows[0].sum : 0; 
     const saldoFinal = totalReceitas - totalDespesas;
 
     

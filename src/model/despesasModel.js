@@ -14,7 +14,7 @@ const criarUmaDespesa = async(descricao , valor, categoria ) => {
     const despesaCriada  = await pool.query(queries.InsertDespesa, [descricao , valor, "Outras"]);
         pool.end();
         return despesaCriada;
-}
+};
 
 //Get Despesas READ
 const listarTodasDespesas = async () => {

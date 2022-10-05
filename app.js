@@ -7,11 +7,12 @@ app.use(express.json());
 const receitasRouter = require('./src/routes/receitasRoutes.js');
 const despesasRouter = require('./src/routes/despesasRoutes.js');
 const resumoRouter = require('./src/routes/resumoRoutes.js');
-
+const usuarioRouter = require('./src/routes/usuarioRoutes.js');
 
 app.use('/receitas' , receitasRouter);
-app.use('/despesas' , despesasRouter)
-app.use('/resumo' , resumoRouter)
+app.use('/despesas' , despesasRouter);
+app.use('/resumo' , resumoRouter);
+app.use('/usuario' , usuarioRouter);
 
 
 const PORT = process.env.PORT || 8001;
