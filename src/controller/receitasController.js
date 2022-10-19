@@ -1,13 +1,13 @@
 
 
 //Importa o service
-const ServiceReceita = require('../service/receitasServices.js');
+const receitasModel = require('../model/receitasModel.js');
 
 // lista todas as receitas criadas
 
 const listaReceitas = async ( _ , res ) => {
     try {
-        const resultadoReceita = await ServiceReceita.listarReceitas();
+        const resultadoReceita = await receitasModel.listarTodasReceitas();
            res.status(200).json(resultadoReceita.rows); 
     } catch (error) {
         res.status(500).json( { error : error.message } );
@@ -19,7 +19,7 @@ const listaReceitas = async ( _ , res ) => {
 const detalhaReceita = async ( req , res ) => {
     try {
         const { id } = req.params
-        const listarUmaReceita = await ServiceReceita.detalharReceitas(id);
+        const listarUmaReceita = await receitasModel.detalharUmaReceita(id);
         res.status(200).json(listarUmaReceita.rows); 
     } catch (error) {
         res.status(500).json( { error : error.message } );
@@ -31,7 +31,7 @@ const detalhaReceita = async ( req , res ) => {
 const criaReceita = async ( req , res )  => {
     try {
         const { descricao , valor } = req.body
-        await ServiceReceita.criarReceitas(descricao,valor)
+        await receitasModel.criarUmaReceita(descricao,valor)
         res.status(201).json( { Message : 'Receita Criada com Sucesso!' } );
     } catch (error) {
         res.status(500).json( { error : error.message } );
@@ -44,7 +44,7 @@ const atualizaReceita = async ( req , res ) => {
     try {
         const { descricao , valor } = req.body;
         const { id } = req.params;
-        await ServiceReceita.atualizarReceita(descricao,valor , id);
+        await receitasModel.atualizarUmaReceita(descricao,valor , id);
         res.status(200).json( { message : 'Receita Atualizada com Sucesso!' } );
     } catch (error) {
         res.status(500).json( { error : error.message } );
@@ -56,7 +56,7 @@ const atualizaReceita = async ( req , res ) => {
 const deletaReceita = async ( req , res ) => {
     try {
         const { id } = req.params;
-        await ServiceReceita.deletarReceita(id);
+        await receitasModel.deletarUmaReceita(id);
         res.status(200).json( { message : 'Receita Deletada com Sucesso!' } );
     } catch(error) {
         res.status(500).json( { error : error.message } );
@@ -68,7 +68,7 @@ const deletaReceita = async ( req , res ) => {
 const listaReceitasPorTipo = async( req , res, next ) => {
     try {
         const { descricao } = req.query;
-        const listaPorTipo = await ServiceReceita.listarPorTipo(descricao);
+        const listaPorTipo = await receitasModel.listarPorTipo(descricao);
         if (descricao) {
             if(listaPorTipo.rowCount === 0){
                 return res.status(404).json( { message : 'Descrição Inválida.' } );
@@ -86,7 +86,7 @@ const listaReceitasPorTipo = async( req , res, next ) => {
 const listarReceitasPorMes = async( req , res ) => {
     try {
         const { ano , mes } = req.params;
-        const listarPorMes = await ServiceReceita.listaPorMes(ano, mes);
+        const listarPorMes = await receitasModel.receitasPorMes(ano, mes);
         return res.status(200).json(listarPorMes.rows);
     } catch (error) {
         res.status(500).json( { error : error.message } );

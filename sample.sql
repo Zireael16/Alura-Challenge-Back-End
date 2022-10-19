@@ -19,8 +19,9 @@ create table financeiro.receitas (
 
 create table usuario.dados (
 	id serial,
-	login varchar(50) not null,
+	nome varchar(50) not null,
+	email varchar(50) not null,
 	hash varchar(200) not null,
-	constraint idUnico unique (login)
+	constraint idUnico unique (email)
 );
 

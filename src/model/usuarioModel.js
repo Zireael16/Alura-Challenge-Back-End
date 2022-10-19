@@ -4,9 +4,11 @@ const { Pool } = require('pg');
 const config = require('../../config/dbConnection.js');
 const query = require('./usuarioQueries.js');
 
-const criarUsuario = async (login , hash) => {
+const criarUsuario = async (nome , email,  hash) => {
     const pool = new Pool(config);
-    const usuarioCriado = await pool.query( query.criarUsuario, [login , hash]);
+
+    const usuarioCriado = pool.query( query.criarUsuario, [nome , email , hash]);
+    
     pool.end();
     return usuarioCriado;
 };
@@ -17,6 +19,7 @@ const autenticarUsuario = async(login) => {
     pool.end();
     return hashUsuarioLogado;
 };
+
 
 
 module.exports = {
