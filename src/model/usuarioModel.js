@@ -13,9 +13,9 @@ const criarUsuario = async (nome , email,  hash) => {
     return usuarioCriado;
 };
 
-const autenticarUsuario = async(login) => {
+const autenticarUsuario = async(email) => {
     const pool = new Pool(config);
-    const hashUsuarioLogado = await pool.query(query.autenticarUsuario, [login]);
+    const hashUsuarioLogado = await pool.query(query.autenticarUsuario, [email]);
     pool.end();
     return hashUsuarioLogado;
 };
