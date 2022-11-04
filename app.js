@@ -14,7 +14,7 @@ const usuarioRouter = require('./src/routes/usuarioRoutes.js');
 
 app.use('/receitas' ,  authService.verificaToken ,receitasRouter);
 app.use('/despesas' , authService.verificaToken,despesasRouter);
-app.use('/resumo' , resumoRouter);
+app.use('/resumo' , authService.verificaToken,resumoRouter);
 app.use('/usuario' , usuarioRouter);
 
 
@@ -23,3 +23,4 @@ const PORT = process.env.PORT || 8001;
 app.listen(PORT , () => {
     console.log(`app is running on port ${PORT}`)
 });
+

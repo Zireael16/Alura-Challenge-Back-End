@@ -22,7 +22,7 @@ const listaDespesas = async ( _ , res ) => {
 //  Detalha uma despesa a partir do ID
 
 const detalhaDespesa = async ( req , res ) => {
-
+    
     try {
 
         const { id } = req.params
